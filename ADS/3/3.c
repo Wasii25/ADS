@@ -30,14 +30,15 @@ void push(Stack *stack, int element){
     stack->data[stack->top] = element;
 }
 
-void pop(Stack *stack){
+int pop(Stack *stack){
     if(isEmpty(stack)){
         printf("Stack is empty\n");
+        return -1;
     }
     else{
         int element = stack->data[stack->top];
         stack->top--;
-        printf("Deleted element is %d\n", element);
+        return element;
     }
 }
 
@@ -53,13 +54,40 @@ void display(Stack *stack){
     }
 }
 
+void checkPalindrome(char *word){
+    int n = strlen(word), i;
+    Stack stack;
+    initialize(&stack);
+    int pal = 1;
+
+    for(i=0; i<n; i++){
+        push(&stack, word[i]);
+    }
+
+    for(i=0; i<n; i++){
+        if(pop(&stack) != word[i]){
+            pal = 0;
+            break;
+        }
+        else{
+            pal = 1;
+        }
+    }
+    if(pal){
+        printf("%s is a palindrome", word);
+    }else{
+        printf("Not a palindrome\n");
+    }
+}
+
 int main(){
     Stack stack;
     initialize(&stack);
     int n, choice, element;
+    char word[20];
 
     do{
-        printf("Menu:\n1 - Push\n2 - Pop\n3 - Display\n4 - Exit\n");
+        printf("Menu:\n1 - Push\n2 - Pop\n3 - Display\n4 - Check Palindrome\n5 - Exit\n");
         printf("Enter the choice: ");
         scanf("%d", &choice);
 
@@ -70,13 +98,17 @@ int main(){
             scanf("%d", &element);
             push(&stack, element);
             break;
-        case 2:
-            pop(&stack);
+        case 2: 
+            printf("Deleted element is %d\n",pop(&stack));
             break;
         case 3:
             display(&stack);
             break;
-        case 4: 
+        case 4:
+            printf("Enter the word to check Palindrome: ");
+            scanf("%s", word);
+            checkPalindrome(word);
+        case 5: 
             exit(0);
             break;
         
@@ -84,7 +116,7 @@ int main(){
             printf("Invalid Choice\n");
             break;
         }
-    }while(choice != 4);
+    }while(choice != 5);
 
 
     return 0;
