@@ -30,12 +30,24 @@ class CompareString{
         }
     }
 
-    int operator<=(CompareString s3){
-        if(strlen(str) <= strlen(s3.str)){
+    int operator>=(CompareString s3){
+        if(strlen(str) >= strlen(s3.str)){
             return 1;
         }
         else{
             return 0;
         }
     }
+};
+
+void Compare(CompareString s1, CompareString s2){
+    if(s1 == s2){
+        cout<<s1.str<<" is equal to "<<s2.str<<endl;
+    }
+    else{
+        cout<<s1.str<<" is not equal to "
+    }
 }
+
+
+
